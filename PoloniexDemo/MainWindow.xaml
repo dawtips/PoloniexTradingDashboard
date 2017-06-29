@@ -1,0 +1,160 @@
+﻿<Controls:MetroWindow x:Class="PoloniexDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:local="clr-namespace:PoloniexDemo"
+        mc:Ignorable="d"
+        Title="Poloniex Trader" Height="1079.749" Width="1545.009" ResizeMode="CanResizeWithGrip" BorderThickness="1" GlowBrush="Black">
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="APIKeySet" Click="APIKeySetButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_key}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="API Key" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <Grid Name="grid">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="232"/>
+                <RowDefinition Height="29.333"/>
+                <RowDefinition Height="226.667"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="54"/>
+                <ColumnDefinition Width="26"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="41*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Refresh" Click="Refresh_Click" Grid.Column="8" Grid.Row="2" Width="60" HorizontalAlignment="Right"/>
+            <ComboBox x:Name="QuoteSymbolSelect" Loaded="SymbolSelect_Loaded" SelectionChanged="QuoteSymbolSelect_SelectionChanged" Grid.Column="9" Grid.Row="2"/>
+            <ComboBox x:Name="BaseSymbolSelect" Loaded="SymbolSelect_Loaded" SelectionChanged="BaseSymbolSelect_SelectionChanged" Grid.Column="10" Grid.Row="2"/>
+            <TextBox x:Name="BalanceDisplay" TextWrapping="Wrap" Grid.Column="13" Grid.Row="2"/>
+            <ComboBox x:Name="MarketSeriesSelect" SelectedIndex="3" Loaded="MarketSeriesSelect_Loaded" SelectedValue="MSValue" SelectionChanged="MarketSeriesSelect_SelectionChanged" Grid.Column="12" Grid.Row="2"/>
+            <TextBox x:Name="BalanceDisplayQuote" TextWrapping="Wrap" Grid.Column="14" Grid.Row="2"/>
+            <TextBox x:Name="QuoteValue" TextWrapping="Wrap" Grid.Column="15" Grid.Row="2"/>
+
+            <cefSharp:ChromiumWebBrowser x:Name="WebBrowser" Grid.Row="4" Grid.ColumnSpan="11" Grid.Column="7" Grid.RowSpan="12" BorderBrush="Black" IsBrowserInitializedChanged="Browser_IsBrowserInitializedChanged"/>
+
+            <Label Content="Quote" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="9" Grid.Row="0"/>
+            <Label Content="Base" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="10" Grid.Row="0"/>
+            <Label Content="Market Series" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="12" Grid.Row="0"/>
+            <Label Content="Balance Quote" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="14" Grid.Row="0"/>
+            <Label Content="Balance BTC" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="13" Grid.Row="0"/>
+
+            <Label Content="Quote BTC" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="15" Grid.Row="0"/>
+            <DataGrid Name="TickerData" FontSize="10" IsReadOnly="True" AutoGenerateColumns="True" HeadersVisibility="Column" Grid.ColumnSpan="6" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Last" Binding="{Binding Path=PriceLast, StringFormat={}{0:0.00000000}}"/>
+                    <DataGridTextColumn Header="Top bid" Binding="{Binding Path=OrderTopBuy, StringFormat={}{0:0.00000000}}"/>
+                    <DataGridTextColumn Header="Top ask" Binding="{Binding Path=OrderTopSell, StringFormat={}{0:0.00000000}}"/>
+                    <DataGridTextColumn Header="Spread" Binding="{Binding Path=OrderSpreadPercentage, StringFormat={}{0:0.000%}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="StartTicker" Click="StartTicker_Click" Content="Start Ticks" Grid.Row="1" Grid.Column="1" Margin="0,10.667,0,0" Width="80" HorizontalAlignment="Left" Grid.RowSpan="2"/>
+            <TextBlock x:Name="TickerTextBlock" VerticalAlignment="Bottom" TextAlignment="Center" TextWrapping="Wrap" Text="TickerLast" Grid.Column="3" Grid.Row="0" Margin="0,8,0,7.333"/>
+            <Button x:Name="StopTicker" Click="StopTicker_Click" Content="Stop Ticks" Grid.Column="2" Grid.Row="2"/>
+            <Label Content="Ticker Data" VerticalAlignment="Bottom" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <DataGrid x:Name="OpenTradesDataGrid" FontSize="10" AutoGenerateColumns="True" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="7" Margin="0,0.667">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}"/>
+                    <DataGridTextColumn Header="Amount Base" Binding="{Binding Path=AmountBase, StringFormat={}{0:0.00000000}}"/>
+                    <DataGridTextColumn Header="Amount Quote" Binding="{Binding Path=AmountQuote, StringFormat={}{0:0.00000000}}"/>
+                    <DataGridTextColumn Header="Price Per Coin" Binding="{Binding Path=PricePerCoin, StringFormat={}{0:0.00000000}}"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}"/>
+                    <DataGridTextColumn Header="Order ID" Binding="{Binding Path=IdOrder}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+           
+            <DataGrid x:Name="OpenOrdersDataGrid" FontSize="10" SelectionChanged="OpenOrdersDataGrid_SelectionChanged" AutoGenerateColumns="True" Grid.Row="16" Grid.Column="13" Grid.ColumnSpan="3" Margin="0,0.667">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Amount Base" Binding="{Binding AmountBase, StringFormat=\{0:0.00000000\}}"/>
+                    <DataGridTextColumn Header="Amount Quote" Binding="{Binding AmountQuote, StringFormat=\{0:0.00000000\}}"/>
+                    <DataGridTextColumn Header="Price Per Coin" Binding="{Binding PricePerCoin, StringFormat=\{0:0.00000000\}}"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="Order ID" Binding="{Binding IdOrder}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Trade Panel" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="12" Grid.Column="1" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,227.667,0,0"/>
+            <TextBox x:Name="Price" TextWrapping="Wrap" Text="0" Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,0.333,0,30.667"/>
+            <TextBox x:Name="LimitPrice" TextChanged="PriceCalculation_TextChanged" TextWrapping="Wrap" Text="0" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,30.667" Grid.RowSpan="2"/>
+            <TextBox x:Name="CostPerCoin_Base_Limit" TextWrapping="Wrap" Grid.Column="3" Grid.Row="9" Grid.RowSpan="3" Margin="0,0,0,31"/>
+            <Label Content="Limit Price" FontWeight="Bold" HorizontalContentAlignment="Left" Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,0,0.333" />
+            <Label Content="Positions" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="15" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,0,-0.333"/>
+            <Label Content="Orders" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.Row="15" Grid.Column="13" Margin="0,0,0,0.333"/>
+            <TextBox x:Name="Quantity" Text="0" TextChanged="PriceCalculation_TextChanged" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,31" Grid.RowSpan="3"/>
+            <TextBox x:Name="Total" Text="0.001" TextChanged="PriceCalculation_TextChanged" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="2" Margin="0,0.333,0,30.333" Grid.RowSpan="2"/>
+            <TextBox x:Name="CostPerCoin_Base" TextWrapping="Wrap" Grid.Column="3" Grid.Row="8" Margin="0,0.333,0,30.333" Grid.RowSpan="2"/>
+            <TextBox x:Name="Quantity_Quote" TextWrapping="Wrap" Grid.Column="3" Grid.Row="9" Margin="0,31" Grid.RowSpan="3"/>
+            <TextBox x:Name="TotalCost_Base" TextWrapping="Wrap" Grid.Column="3" Grid.Row="11" Margin="0,0.333,0,30.333" Grid.RowSpan="2"/>
+            <Button x:Name="Buy_Button" FontWeight="ExtraBold" Click="Buy_Button_Click" Content="BUY MARKET" Grid.Column="1" Grid.Row="12" Background="#FF11C12C" Grid.ColumnSpan="2" Margin="0,0,0,0.333"/>
+            <Button x:Name="Sell_Button" FontWeight="ExtraBold"  Click="Sell_Button_Click" Content="SELL MARKET" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="3" Background="#FFEA7326" Margin="0,0,0,0.333"/>
+            <Button x:Name="BuyLimit_Button" FontWeight="ExtraBold" Click="BuyLimit_Button_Click" Content="BUY LIMIT" Grid.Column="1" Grid.Row="12" Background="#FF0A5D16" Grid.ColumnSpan="2" Margin="0,31" Grid.RowSpan="3"/>
+            <Button x:Name="SellLimit_Button"  FontWeight="ExtraBold" Click="SellLimit_Button_Click" Content="SELL LIMIT" Grid.Column="3" Grid.Row="12" Grid.ColumnSpan="3" Background="#FFBF1A09" Margin="0,31" Grid.RowSpan="3"/>
+
+            <Label Content="Market Price" FontWeight="Bold" HorizontalContentAlignment="Left" Grid.Column="4" Grid.Row="8" Margin="0,1.333,0,29.333" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            <Label Content="Quantity" FontWeight="Bold" HorizontalContentAlignment="Left" Grid.Column="4" Grid.Row="9" Margin="0,31" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+            <Label Content="Total" FontWeight="Bold" HorizontalContentAlignment="Left" Grid.Column="4" Grid.Row="10" Margin="0,30.667,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            <Button Content="Close" Grid.Row="15" Grid.Column="15" Click="CloseOrder_Click" Margin="0,0,0,0.333"/>
+            <DataGrid Name="BalanceGrid" FontSize="10" Grid.ColumnSpan="6" Grid.Column="1" HorizontalAlignment="Left" Height="228" Grid.Row="6" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,0.667,0,0" Width="380">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Symbol" Binding="{Binding Key}"/>
+                    <DataGridTextColumn Header="Bitcoin Value" Binding="{Binding Value.BitcoinValue}"/>
+                    <DataGridTextColumn Header="Quote Available" Binding="{Binding Value.QuoteAvailable}"/>
+                    <DataGridTextColumn Header="Quote On Order" Binding="{Binding Value.QuoteOnOrders}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Balances" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,232.667,0,227.333" Grid.RowSpan="3"/>
+            <CheckBox Name="ShowZeroBalance" Content="Show 0 Balances" Grid.Column="4" IsChecked="False" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" HorizontalAlignment="Left" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Center" Margin="0,7.333"/>
+            <TextBox Name="TotalBalanceAll" Grid.ColumnSpan="4" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="50,9.667,0,0" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170"/>
+
+        </Grid>
+    </ScrollViewer>
+</Controls:MetroWindow>
