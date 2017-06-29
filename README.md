@@ -11,6 +11,8 @@ or get the [CI build](http://vsixgallery.com/extension/{ID}/).
 
 {Description}
 
+http://prntscr.com/fpgyc8
+
 See the [change log](CHANGELOG.md) for changes and road map.
 
 ## Features
