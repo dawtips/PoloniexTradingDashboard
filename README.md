@@ -1,44 +1,47 @@
 # Poloniex Trading Dashboard
 
-<!-- Replace this badge with your own-->
-[![Build status](https://ci.appveyor.com/api/projects/status/hv6uyc059rqbc6fj?svg=true)](https://ci.appveyor.com/project/madskristensen/extensibilitytools)
-
-<!-- Update the VS Gallery link after you upload the VSIX-->
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery])
-or get the [CI build](http://vsixgallery.com/extension/{ID}/).
-
 ---------------------------------------
 
-{Description}
+A WPF dashboard for trading on Poloniex Exchange.
 
-http://prntscr.com/fpgyc8
+I have used the Trading View widget for displaying the charts
+This includes all the indicators and tools available on tradingview
+** You cannot trade off the chart directly, merely a visual tool **
 
-See the [change log](CHANGELOG.md) for changes and road map.
+# Usage
+** Dummy API key loaded to get app running **
+1. Open API key entry window, enter you own API keys from Poloniex
+2. Save keys and restart app
+
+![API Keys](https://github.com/ColossusFX/PoloniexTradingDashboard/blob/master/Screenshot_1.jpg?raw=true "API Key Entry")
+
+3. Select Quote and Base currency to trade
+4. Press the refresh button to fech the data 
+** Trading view widget can take a while to load, be patient **
+
+![Refresh](https://github.com/ColossusFX/PoloniexTradingDashboard/blob/master/Screenshot_2.jpg?raw=true "Refresh")
 
 ## Features
+- Buy / Sell Market Order from top of order book (need to change this to use Tick Data like Poloniex Auto Trader)
+- Buy / Sell Limit ordes
+- Show past trades
+- Show open ordes
+- Tick data stream datagrid
+- Shows balances
+ 
+#### To Do
+- This is a working demo I made to test all the functions of the PoloniexApi.Net project
+- There are bugs, but it will works to trade manually with
 
-- Feature 1
-- Feature 2
-  - Sub feature
-
-### Feature 1
-Describe feature 1. Add screenshots/code samples etc.
-
-### Feature 2
-Describe feature 2. Add screenshots/code samples etc.
-
-#### Sub feature
-Describe sub feature. Add screenshots/code samples etc.
+#### Dependencies
+Make sure to download, build and reference my fork of PoloniexApi.Net from my repo.
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
 if you want to contribute to this project.
 
-For cloning and building this project yourself, make sure
-to install the
-[Extensibility Tools 2015](https://visualstudiogallery.msdn.microsoft.com/ab39a092-1343-46e2-b0f1-6a3f91155aa6)
-extension for Visual Studio which enables some features
-used by this project.
-
 ## License
 [Apache 2.0](LICENSE)
+
+## Thanks
+Thanks to https://github.com/afhacker for helping
