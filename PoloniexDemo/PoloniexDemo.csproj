@@ -161,7 +161,6 @@
     <Compile Include="ApiKeyWindow.xaml.cs">
       <DependentUpon>ApiKeyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ApiKeys.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
