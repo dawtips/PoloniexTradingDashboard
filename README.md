@@ -8,6 +8,9 @@ I have used the Trading View widget for displaying the charts
 This includes all the indicators and tools available on tradingview
 ** You cannot trade off the chart directly, merely a visual tool **
 
+# Warning about API keys and cloning / forking this project
+** GitIgnore App.config or don't upload your saved keys to github! Please take note!!!! **
+
 # Usage
 ** Dummy API key loaded to get app running **
 1. Open API key entry window, enter you own API keys from Poloniex
